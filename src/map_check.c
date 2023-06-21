@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:35:27 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/14 10:34:04 by parallels        ###   ########.fr       */
+/*   Updated: 2023/06/21 15:01:21 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
-static void	check_map_paths(t_data *data)
-{
-	int	collectibles;
-	int	exit;
-	char **map_copy;
-
-	collectibles = data->textures.collectibles_nb;
-	exit = 1;
-	map_copy = strs_strdup(data->map, data);
-	if (!map_copy)
-		printf("Map copy error"); // CHANGER
-	// PARCOURIR LA MAP
-		// DES QUE ON TOMBE SUR C OU E , envoyer la position de C/E et faire une fonction récursive pour comparer la position de C par 
-		//rapport à la player_pos
-	while (*map_copy)
-	{
-		printf("%s\n", *map_copy);
-		map_copy++;
-	}
-	if (collectibles != 0 || exit != 0)
-		exit_error(msg("Collectible or exit might not be accessible", 1), data);
-}
 
 char **strs_strdup(char **strs, t_data *data)
 {
@@ -169,7 +146,7 @@ void	check_map_is_valid(t_data *data, char *map_arg)
 	data->map_height = i;
 	close(fd_map);
 	check_map(data, data->map_height);
-	check_map_paths(data);
+	
 }
 
 void	check_map_format(char **argv, t_data *data)

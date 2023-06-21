@@ -5,7 +5,7 @@ CC = gcc
 # SOURCES
 
 SRCS_DIR = src/
-SRCS_FILES = so_long.c error.c map_check.c map_creation.c player_movement.c
+SRCS_FILES = so_long.c error.c map_check.c map_creation.c player_movement.c map_paths_checker.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_SRC = $(SRCS:.c=.o)
 

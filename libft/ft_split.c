@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 17:42:33 by francois          #+#    #+#             */
-/*   Updated: 2022/12/13 23:17:03 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:08:42 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ char	**ft_split(char const *s, char c)
 		}
 		s = &s[words_len + 1];
 	}
-	tabtab[words_total] = '\0';
+	tabtab[words_total] = NULL;
 	return (tabtab);
 }

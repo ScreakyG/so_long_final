@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:23:22 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/13 13:16:04 by parallels        ###   ########.fr       */
+/*   Updated: 2023/06/21 13:56:49 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void	move_player(int x, int y, t_data *data)
 				data->mlx_window = NULL;
 			}
 			else
-				return ;
+			{
+				
+			}
 		}
 		printf("Player movements count = %d\n", ++data->move_count);
 	}

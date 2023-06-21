@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:53:49 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/13 19:32:23 by parallels        ###   ########.fr       */
+/*   Updated: 2023/06/21 14:37:07 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_struct
 
 void	check_map_format(char **argv, t_data *data);
 void	check_map_is_valid(t_data *data, char *map_arg);
+int		path_valid(char **map, t_pos obj, t_pos player);
+void    map_paths_valid(t_data *data);
 
 /* Map Creation */
 

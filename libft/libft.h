@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 17:42:33 by francois          #+#    #+#             */
-/*   Updated: 2023/04/22 19:26:53 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:04:52 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_putnbr_fd(int n, int fd);
 
 // GNL
 
-char 	*get_next_line(int fd);
+char	*get_next_line(int fd);
 void	ft_free2(char **str1, char **str2, char **str3);
 char	*ft_strdup2(char *src);
 int		ft_strchr2(char *str, char c);

@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:32:45 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/04/26 16:49:01 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:01:27 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	load_xpm_files(t_data *data)
 	data->textures.floor = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/floor.xpm", &width, &height);
 
 	check_xpm_load(data);
-	// PENSER A FAIRE UNE FONCTION POUR CHECK SI XPM BIEN LOAD.
 }
 
 void	create_map(t_data *data)
