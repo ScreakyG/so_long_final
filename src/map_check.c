@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:35:27 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/21 15:01:21 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:55:40 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	check_map_is_valid(t_data *data, char *map_arg)
 	data->map_height = i;
 	close(fd_map);
 	check_map(data, data->map_height);
-	
+	map_paths_valid(data);
 }
 
 void	check_map_format(char **argv, t_data *data)
