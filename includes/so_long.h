@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:53:49 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/21 14:37:07 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:00:01 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_text
 	void	*collectibles;
 	void	*exit;
 	int		collectibles_nb;
+	int		player_nb;
+	int		exit_nb;
 }	t_textures;
 
 typedef struct s_struct
@@ -74,20 +76,16 @@ void	move_player(int x, int y, t_data *data);
 
 int		msg(char *str1, int exit_code);
 void	exit_error(int exit_code, t_data *data);
-void	free_strs(t_data *data);
-void	destroy_all_xpm_images(t_data *data);
 
 /* UTILS */
 
-char **strs_strdup(char **strs, t_data *data);
-
-//int	render_rectangle(t_img *img, t_rect rect);
-//int	render_background(t_img *img, int color);
-//void	img_pix_put(t_img *img, int x, int y, int color);
+char 	**strs_strdup(char **strs, t_data *data);
+void	free_strs(char **strs);
+void	destroy_all_xpm_images(t_data *data);
 
 /* Input Handling */
 
 int	render(t_data *data);
-int	handle_keyPress(int keysym, t_data *data);
+int	handle_keypress(int keysym, t_data *data);
 
 #endif

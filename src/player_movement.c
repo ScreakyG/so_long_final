@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:23:22 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/21 13:56:49 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:46:25 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_pos	get_player_pos(t_data *data)
 		}
 		player_pos.y++;
 	}
-
+	return ((t_pos){0, 0});
 }
 
 void	move_player(int x, int y, t_data *data)
@@ -36,7 +36,6 @@ void	move_player(int x, int y, t_data *data)
 	t_pos	player_pos;
 
 	player_pos = get_player_pos(data);
-
 	if (data->map[player_pos.y + y][player_pos.x + x] != '1')
 	{
 		if (data->map[player_pos.y + y][player_pos.x + x] == '0')
@@ -61,9 +60,7 @@ void	move_player(int x, int y, t_data *data)
 				data->mlx_window = NULL;
 			}
 			else
-			{
-				
-			}
+				return ;
 		}
 		printf("Player movements count = %d\n", ++data->move_count);
 	}

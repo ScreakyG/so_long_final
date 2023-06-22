@@ -6,40 +6,17 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:35:27 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/21 15:55:40 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:17:36 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-char **strs_strdup(char **strs, t_data *data)
-{
-	char **copy;
-	int	i;
-
-	i = 0;
-	copy = malloc((data->map_height + 1) * sizeof(char *));
-	if (!copy)
-		return (NULL);
-	while (i < data->map_height)
-	{
-		copy[i] = ft_strdup2(strs[i]);
-		i++;
-	}
-	copy[i] = NULL;
-	return (copy);
-}
-
 static void	check_map_char(t_data *data)
 {
 	int	i;
 	int	j;
-	int	exit;
-	int	player;
 
-	data->textures.collectibles_nb = 0;
-	exit = 0;
-	player = 0;
 	i = 0;
 	while (data->map[i])
 	{
@@ -49,16 +26,17 @@ static void	check_map_char(t_data *data)
 			if (data->map[i][j] == 'C')
 				data->textures.collectibles_nb++;
 			else if (data->map[i][j] == 'E')
-				exit++;
+				data->textures.exit_nb++;
 			else if (data->map[i][j] == 'P')
-				player++;
+				data->textures.player_nb++;
 			else if (data->map[i][j] != '0' && data->map[i][j] != '1')
 				exit_error(msg("Wrong map values", 1), data);
 			j++;
 		}
 		i++;
 	}
-	if (data->textures.collectibles_nb == 0 || exit != 1 || player != 1)
+	if (data->textures.collectibles_nb == 0 || data->textures.exit_nb != 1
+		|| data->textures.player_nb != 1)
 		exit_error(msg("Error with map items", 1), data);
 }
 
@@ -68,17 +46,17 @@ static void	check_map(t_data *data, unsigned int height)
 	unsigned int	j;
 	unsigned int	width;
 
-	i = 0;
-	if (!data->map[i] || data->map[i][0] == '\0') // Moyennement correct
-		exit_error(msg("File empty\n", 1), data);
-	width = ft_strlen(data->map[i]);
+	i = -1;
+	if (!data->map[0] || data->map[0][0] == '\0')
+		exit_error(msg("File empty", 1), data);
+	width = ft_strlen(data->map[0]);
 	data->map_width = width;
-	while (data->map[i])
+	while (data->map[++i])
 	{
 		if (ft_strlen(data->map[i]) != width)
 			exit_error(msg("Map not rectangle", 1), data);
-		j = 0;
-		while (data->map[i][j])
+		j = -1;
+		while (data->map[i][++j])
 		{
 			if (i == 0 && data->map[i][j] != '1')
 				exit_error(msg("Map not closed", 1), data);
@@ -88,10 +66,7 @@ static void	check_map(t_data *data, unsigned int height)
 				exit_error(msg("Map not closed", 1), data);
 			if (i == ((height - 1)) && data->map[i][j] != '1')
 				exit_error(msg("Map not closed", 1), data);
-			j++;
-
 		}
-		i++;
 	}
 	check_map_char(data);
 }
@@ -115,7 +90,6 @@ static int	number_lines(char *map_arg, t_data *data)
 	}
 	close(fd_map);
 	return (count);
-
 }
 
 void	check_map_is_valid(t_data *data, char *map_arg)

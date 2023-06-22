@@ -5,103 +5,85 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/18 18:55:36 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/04/24 18:59:31 by fgonzale         ###   ########.fr       */
+/*   Created: 2023/04/21 21:08:17 by fgonzale          #+#    #+#             */
+/*   Updated: 2023/06/22 19:01:33 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	img_pix_put(t_img *img, int x, int y, int color)
+int	render(t_data *data)
 {
-	char	*pixel;
-
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(int *)pixel = color;
-}
-
-int	render_rectangle(t_img *img, t_rect rect)
-{
-	int	i;
-	int	j;
-
-	i = rect.y;
-	while (i < rect.y + rect.height)
-	{
-		j = rect.x;
-		while (j < rect.x + rect.width)
-			img_pix_put(img, j++, i, RED_PXL);
-		i++;
-	}
-	return (0);
-}
-
-int	render_background(t_img *img, int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < WINDOW_HEIGHT)
-	{
-		j = 0;
-		while (j < WINDOW_WIDTH)
-			img_pix_put(img, j++, i, color);
-		i++;
-	}
-	return (0);
-}
-
-static int	render2(t_data *data)
-{
-	void	*wall;
-	int		height;
-	int		witdh;
-
-	wall = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/wall.xpm", &witdh, &height);
 	if (data->mlx_window)
 	{
-		render_background(&data->img, WHITE_PXL);
-		render_rectangle(&data->img, (t_rect){0, 0, 50, 50, RED_PXL});
-		mlx_put_image_to_window(data->mlx_ptr, data->mlx_window, data->img.mlx_img, 0, 0);
-		mlx_put_image_to_window(data->mlx_ptr, data->mlx_window, wall, 100, 150);
-
+		create_map(data);
 	}
 	return (0);
 }
 
-int	handle_keyPress(int keysym, t_data *data)
+int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
-	{
-		mlx_destroy_window(data->mlx_ptr, data->mlx_window);
-		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
-		data->mlx_window = NULL;
-	}
-	printf("Key Pressed : %d", keysym);
+		exit_error(0, data);
+	else if (keysym == XK_w || keysym == XK_W)
+		move_player(0, -1, data);
+	else if (keysym == XK_a || keysym == XK_A)
+		move_player(-1, 0, data);
+	else if (keysym == XK_s || keysym == XK_S)
+		move_player(0, 1, data);
+	else if (keysym == XK_d || keysym == XK_D)
+		move_player(1, 0, data);
 	return (0);
 }
 
-int	main(void)
+static void	init_data(t_data *data)
+{
+	data->map = NULL;
+	data->mlx_ptr = NULL;
+	data->mlx_window = NULL;
+	data->textures.collectibles = NULL;
+	data->textures.exit = NULL;
+	data->textures.floor = NULL;
+	data->textures.player = NULL;
+	data->textures.wall = NULL;
+	data->move_count = 0;
+	data->textures.player_nb = 0;
+	data->textures.collectibles_nb = 0;
+	data->textures.exit_nb = 0;
+}
+
+static int	cross_close(t_data *data)
+{
+	exit_error(0, data);
+	return (0);
+}
+
+int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (!(data.mlx_ptr = mlx_init()))
-		return (MLX_ERR);
-	if (!(data.mlx_window = mlx_new_window(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "Hello World")))
-	{
-		free(data.mlx_window);
-		return (MLX_ERR);
-	}
+	if (argc != 2)
+		return (msg("Need a '.ber' map as arg", 1));
+	init_data(&data);
+	check_map_format(argv, &data);
+	check_map_is_valid(&data, argv[1]); // VOIR FEUILLE
 
-	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp, &data.img.line_len, &data.img.endian);
+	if (!(data.mlx_ptr = mlx_init()))
+		exit_error(MLX_ERR, &data);
+	if (!(data.mlx_window = mlx_new_window(data.mlx_ptr, SPRITE_SIZE * data.map_width, SPRITE_SIZE * data.map_height, "so_long")))
+	{
+		free(data.mlx_window); // PEUT ETRE ENLEVER ?
+		exit_error(MLX_ERR, &data);
+	}
+	load_xpm_files(&data);
 
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
-	mlx_hook(data.mlx_window, KeyPress, KeyPressMask, &handle_keyPress, &data);
-
+	mlx_hook(data.mlx_window, KeyPress, KeyPressMask, &handle_keypress, &data); // FONCTION EXIT ESCAPE REFACTOR
+	mlx_hook(data.mlx_window, DestroyNotify, 0, &cross_close, &data); // FONCTION EXIT ESCAPE REFACTOR
 	mlx_loop(data.mlx_ptr);
 
 	mlx_destroy_display(data.mlx_ptr);
 	free(data.mlx_ptr);
+	free_strs(data.map);
+	return (0);
 }

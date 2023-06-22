@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:32:45 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/21 14:01:27 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:50:51 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ void	load_xpm_files(t_data *data)
 	int	width;
 	int	height;
 
-	data->textures.wall = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/wall.xpm", &width, &height);
-	data->textures.collectibles = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/collectibles.xpm", &width, &height);
-	data->textures.exit = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/portal.xpm", &width, &height);
-	data->textures.player = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/player.xpm", &width, &height);
-	data->textures.floor = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/floor.xpm", &width, &height);
-
+	data->textures.wall = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/wall.xpm", &width, &height);
+	data->textures.collectibles = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/collectibles.xpm", &width, &height);
+	data->textures.exit = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/portal.xpm", &width, &height);
+	data->textures.player = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/player.xpm", &width, &height);
+	data->textures.floor = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/floor.xpm", &width, &height);
 	check_xpm_load(data);
 }
 
