@@ -6,13 +6,13 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:35:27 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/22 19:17:36 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:46:43 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static void	check_map_char(t_data *data)
+void	check_map_char(t_data *data)
 {
 	int	i;
 	int	j;
@@ -40,20 +40,18 @@ static void	check_map_char(t_data *data)
 		exit_error(msg("Error with map items", 1), data);
 }
 
-static void	check_map(t_data *data, unsigned int height)
+void	check_map(t_data *data, int height)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	width;
+	int	i;
+	int	j;
 
 	i = -1;
 	if (!data->map[0] || data->map[0][0] == '\0')
 		exit_error(msg("File empty", 1), data);
-	width = ft_strlen(data->map[0]);
-	data->map_width = width;
+	data->map_width = ft_strlen(data->map[0]);
 	while (data->map[++i])
 	{
-		if (ft_strlen(data->map[i]) != width)
+		if ((int)ft_strlen(data->map[i]) != data->map_width)
 			exit_error(msg("Map not rectangle", 1), data);
 		j = -1;
 		while (data->map[i][++j])
@@ -62,13 +60,12 @@ static void	check_map(t_data *data, unsigned int height)
 				exit_error(msg("Map not closed", 1), data);
 			if (j == 0 && data->map[i][j] != '1')
 				exit_error(msg("Map not closed", 1), data);
-			if (j == (width - 1) && data->map[i][j] != '1')
+			if (j == (data->map_width - 1) && data->map[i][j] != '1')
 				exit_error(msg("Map not closed", 1), data);
 			if (i == ((height - 1)) && data->map[i][j] != '1')
 				exit_error(msg("Map not closed", 1), data);
 		}
 	}
-	check_map_char(data);
 }
 
 static int	number_lines(char *map_arg, t_data *data)
@@ -119,8 +116,6 @@ void	check_map_is_valid(t_data *data, char *map_arg)
 	data->map[i] = NULL;
 	data->map_height = i;
 	close(fd_map);
-	check_map(data, data->map_height);
-	map_paths_valid(data);
 }
 
 void	check_map_format(char **argv, t_data *data)

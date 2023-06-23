@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 02:42:51 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/04/22 19:25:57 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:26:14 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static char	*get_lines(char **saved, char **temp)
 	char	*line;
 
 	*temp = ft_strdup2(*saved);
+	if (!*temp)
+		return (NULL);
 	ft_free2(saved, NULL, NULL);
 	line = get_before_line(*temp);
 	*saved = get_after_line(*temp);

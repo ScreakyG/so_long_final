@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:08:53 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/22 17:44:23 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:15:30 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	path_valid(char **map, t_pos player, t_pos obj)
 {
 	if (obj.y == player.y && obj.x == player.x)
 		return (1);
-	if (map[player.y][player.x] == 'C' || map[player.y][player.x] == '0' || map[player.y][player.x] == 'P')
+	if (map[player.y][player.x] == 'C' || map[player.y][player.x] == '0'
+		|| map[player.y][player.x] == 'P')
 	{
 		map[player.y][player.x] = 'V';
 		if (path_valid(map, (t_pos){player.x, player.y - 1}, obj))
@@ -37,11 +38,11 @@ void	map_paths_valid(t_data *data)
 	int		j;
 	char	**map_copy;
 
-	i = 0;
-	while (data->map[i])
+	i = -1;
+	while (data->map[++i])
 	{
-		j = 0;
-		while (data->map[i][j])
+		j = -1;
+		while (data->map[i][++j])
 		{
 			if (data->map[i][j] == 'C' || data->map[i][j] == 'E')
 			{
@@ -55,8 +56,6 @@ void	map_paths_valid(t_data *data)
 				}
 				free_strs(map_copy);
 			}
-			j++;
 		}
-		i++;
 	}
 }

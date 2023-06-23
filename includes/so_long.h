@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:53:49 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/22 19:00:01 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:16:16 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define SPRITE_SIZE 32
 # define MLX_ERR 1
+# define ANSI_COLOR_GREEN   "\x1b[32m"
+# define ANSI_COLOR_RESET   "\x1b[0m"
 
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
@@ -52,15 +54,17 @@ typedef struct s_struct
 	void		*mlx_ptr;
 	void		*mlx_window;
 	int			move_count;
-	t_textures textures;
+	t_textures	textures;
 }	t_data;
 
 /* Map Check*/
 
 void	check_map_format(char **argv, t_data *data);
 void	check_map_is_valid(t_data *data, char *map_arg);
+void	check_map(t_data *data, int height);
+void	check_map_char(t_data *data);
 int		path_valid(char **map, t_pos obj, t_pos player);
-void    map_paths_valid(t_data *data);
+void	map_paths_valid(t_data *data);
 
 /* Map Creation */
 
@@ -70,22 +74,24 @@ void	load_xpm_files(t_data *data);
 /* Player Movement */
 
 t_pos	get_player_pos(t_data *data);
-void	move_player(int x, int y, t_data *data);
+void	move_player(int x, int y, t_data *data, t_pos player_pos);
 
-/* Error */
+/* Exit */
 
 int		msg(char *str1, int exit_code);
 void	exit_error(int exit_code, t_data *data);
+int		cross_close(t_data *data);
+void	exit_win(t_data *data);
 
 /* UTILS */
 
-char 	**strs_strdup(char **strs, t_data *data);
+char	**strs_strdup(char **strs, t_data *data);
 void	free_strs(char **strs);
 void	destroy_all_xpm_images(t_data *data);
 
 /* Input Handling */
 
-int	render(t_data *data);
-int	handle_keypress(int keysym, t_data *data);
+int		render(t_data *data);
+int		handle_keypress(int keysym, t_data *data);
 
 #endif
