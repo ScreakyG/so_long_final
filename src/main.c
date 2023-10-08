@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 21:08:17 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/23 16:35:43 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:43:50 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv)
 			SPRITE_SIZE * data.map_height, "so_long");
 	if (!data.mlx_window)
 	{
-		free(data.mlx_window); // PEUT ETRE ENLEVER ?
+		free(data.mlx_window);
 		exit_error(MLX_ERR, &data);
 	}
 	load_xpm_files(&data);

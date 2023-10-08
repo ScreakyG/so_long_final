@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:33:34 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/22 17:45:09 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/08 12:59:14 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	**strs_strdup(char **strs, t_data *data)
 	while (i < data->map_height)
 	{
 		copy[i] = ft_strdup2(strs[i]);
+		if (copy[i] == NULL)
+			return (free_strs(copy), NULL);
 		i++;
 	}
 	copy[i] = NULL;
