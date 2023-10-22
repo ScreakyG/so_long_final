@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:35:27 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/23 17:39:35 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/22 18:29:01 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	check_map_format(char **argv, t_data *data)
 	int	i;
 
 	i = 0;
-	if (ft_strlen(argv[1]) <= 4)
+	if (ft_strlen(argv[1]) < 4)
 		exit_error(msg("Map format is not correct", 1), data);
 	while (argv[1][i])
 		i++;
