@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:35:27 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/10/23 22:53:18 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/25 00:31:25 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	check_map_format(char **argv, t_data *data)
 
 	i = 0;
 	if (ft_strlen(argv[1]) < 4)
-		exit_error(msg("Map format is not correct", 1), data);
+		exit_error(msg("Map format must be .ber", 1), data);
 	while (argv[1][i])
 		i++;
 	i -= 4;
