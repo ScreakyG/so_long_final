@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:53:49 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/10/24 04:21:02 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:30:05 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_struct
 	int			screen_width;
 	int			screen_height;
 	bool		scrolling_display;
+	t_pos		camera;
 	void		*mlx_ptr;
 	void		*mlx_window;
 	int			move_count;
@@ -75,7 +76,7 @@ void	map_paths_valid(t_data *data);
 void	create_map(t_data *data);
 void	load_xpm_files(t_data *data);
 void	check_map_dimensions(t_data *data);
-void	update_camera(int *camera_x, int *camera_y, t_data *data);
+void	update_camera(t_data *data);
 
 /* Player Movement */
 

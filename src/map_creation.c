@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:32:45 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/10/24 04:22:37 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:29:48 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,15 @@ void	load_xpm_files(t_data *data)
 
 static void	put_images(t_data *data, char c, int i, int j)
 {
-	int	camera_x;
-	int	camera_y;
+	int	x;
+	int	y;
 
-	camera_x = 0;
-	camera_y = 0;
+	data->camera.x = 0;
+	data->camera.y = 0;
 	if (data->scrolling_display == true)
-		update_camera(&camera_x, &camera_y, data);
-
-	int x = j * SPRITE_SIZE - camera_x;
-    int y = i * SPRITE_SIZE - camera_y;
-
+		update_camera(data);
+	x = j * SPRITE_SIZE - data->camera.x;
+	y = i * SPRITE_SIZE - data->camera.y;
 	if (c == '1')
 		mlx_put_image_to_window(data->mlx_ptr, data->mlx_window,
 			data->textures.wall, x, y);

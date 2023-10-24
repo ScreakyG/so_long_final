@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:33:34 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/10/24 04:31:40 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:32:26 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,21 @@ void	check_map_dimensions(t_data *data)
 	return ;
 }
 
-void	update_camera(int *camera_x, int *camera_y, t_data *data)
+void	update_camera(t_data *data)
 {
 	t_pos	player;
 
 	player = get_player_pos(data);
-	*camera_x = (player.x * SPRITE_SIZE) - (1600 / 2);
-	*camera_y = (player.y * SPRITE_SIZE) - (900 / 2);
-	if (*camera_x < 0)
-		*camera_x = 0;
-	if (*camera_x > (data->map_width * SPRITE_SIZE) - 1600)
-		*camera_x = (data->map_width * SPRITE_SIZE) - 1600;
-	if (*camera_y < 0)
-		*camera_y = 0;
-	if (*camera_y > (data->map_height * SPRITE_SIZE) - 900)
+	data->camera.x = (player.x * SPRITE_SIZE) - (1600 / 2);
+	data->camera.y = (player.y * SPRITE_SIZE) - (900 / 2);
+	if (data->camera.x < 0)
+		data->camera.x = 0;
+	if (data->camera.x > (data->map_width * SPRITE_SIZE) - 1600)
+		data->camera.x = (data->map_width * SPRITE_SIZE) - 1600;
+	if (data->camera.y < 0)
+		data->camera.y = 0;
+	if (data->camera.y > (data->map_height * SPRITE_SIZE) - 900)
 	{
-		*camera_y = (data->map_height * SPRITE_SIZE) - 900;
+		data->camera.y = (data->map_height * SPRITE_SIZE) - 900;
 	}
 }
