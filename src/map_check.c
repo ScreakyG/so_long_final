@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:35:27 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/10/22 18:29:01 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/23 22:53:18 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	check_map(t_data *data, int height)
 
 	i = -1;
 	if (!data->map[0] || data->map[0][0] == '\0')
-		exit_error(msg("File empty", 1), data);
+		exit_error(msg("File empty / Map have blank spaces", 1), data);
 	data->map_width = ft_strlen(data->map[0]);
 	while (data->map[++i])
 	{

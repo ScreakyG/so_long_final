@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:32:45 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/06/23 18:13:04 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/24 04:22:37 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,33 @@ void	load_xpm_files(t_data *data)
 }
 
 static void	put_images(t_data *data, char c, int i, int j)
-{	
+{
+	int	camera_x;
+	int	camera_y;
+
+	camera_x = 0;
+	camera_y = 0;
+	if (data->scrolling_display == true)
+		update_camera(&camera_x, &camera_y, data);
+
+	int x = j * SPRITE_SIZE - camera_x;
+    int y = i * SPRITE_SIZE - camera_y;
+
 	if (c == '1')
 		mlx_put_image_to_window(data->mlx_ptr, data->mlx_window,
-			data->textures.wall, j * SPRITE_SIZE, i * SPRITE_SIZE);
+			data->textures.wall, x, y);
 	else if (c == 'C')
 		mlx_put_image_to_window(data->mlx_ptr, data->mlx_window,
-			data->textures.collectibles, j * SPRITE_SIZE, i * SPRITE_SIZE);
+			data->textures.collectibles, x, y);
 	else if (c == '0')
 		mlx_put_image_to_window(data->mlx_ptr, data->mlx_window,
-			data->textures.floor, j * SPRITE_SIZE, i * SPRITE_SIZE);
+			data->textures.floor, x, y);
 	else if (c == 'E')
 		mlx_put_image_to_window(data->mlx_ptr, data->mlx_window,
-			data->textures.exit, j * SPRITE_SIZE, i * SPRITE_SIZE);
+			data->textures.exit, x, y);
 	else if (c == 'P')
 		mlx_put_image_to_window(data->mlx_ptr, data->mlx_window,
-			data->textures.player, j * SPRITE_SIZE, i * SPRITE_SIZE);
+			data->textures.player, x, y);
 }
 
 void	create_map(t_data *data)

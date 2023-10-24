@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 21:08:17 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/10/06 16:43:50 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/24 03:44:37 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	init_data(t_data *data)
 	data->textures.player_nb = 0;
 	data->textures.collectibles_nb = 0;
 	data->textures.exit_nb = 0;
+	data->scrolling_display = false;
 }
 
 static void	check_map_all(char **argv, t_data *data)
@@ -75,8 +76,9 @@ int	main(int argc, char **argv)
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		exit_error(MLX_ERR, &data);
-	data.mlx_window = mlx_new_window(data.mlx_ptr, SPRITE_SIZE * data.map_width,
-			SPRITE_SIZE * data.map_height, "so_long");
+	check_map_dimensions(&data);
+	data.mlx_window = mlx_new_window(data.mlx_ptr, data.screen_width,
+			data.screen_height, "so_long");
 	if (!data.mlx_window)
 	{
 		free(data.mlx_window);

@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:33:34 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/10/08 12:59:14 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/24 04:31:40 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,40 @@ void	destroy_all_xpm_images(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, data->textures.exit);
 	if (data->textures.wall)
 		mlx_destroy_image(data->mlx_ptr, data->textures.wall);
+}
+
+void	check_map_dimensions(t_data *data)
+{
+	if ((data->map_width * SPRITE_SIZE) > 1600
+		|| (data->map_height * SPRITE_SIZE) > 900)
+	{
+		data->screen_width = 1600;
+		data->screen_height = 900;
+		data->scrolling_display = true;
+	}
+	else
+	{
+		data->screen_width = data->map_width * SPRITE_SIZE;
+		data->screen_height = data->map_height * SPRITE_SIZE;
+	}
+	return ;
+}
+
+void	update_camera(int *camera_x, int *camera_y, t_data *data)
+{
+	t_pos	player;
+
+	player = get_player_pos(data);
+	*camera_x = (player.x * SPRITE_SIZE) - (1600 / 2);
+	*camera_y = (player.y * SPRITE_SIZE) - (900 / 2);
+	if (*camera_x < 0)
+		*camera_x = 0;
+	if (*camera_x > (data->map_width * SPRITE_SIZE) - 1600)
+		*camera_x = (data->map_width * SPRITE_SIZE) - 1600;
+	if (*camera_y < 0)
+		*camera_y = 0;
+	if (*camera_y > (data->map_height * SPRITE_SIZE) - 900)
+	{
+		*camera_y = (data->map_height * SPRITE_SIZE) - 900;
+	}
 }
