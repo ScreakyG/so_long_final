@@ -6,13 +6,14 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:53:49 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/10/24 14:30:05 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/25 18:22:08 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# define DOUBLONS "You need at least 1 collectible, only 1 exit and 1 player"
 # define SPRITE_SIZE 32
 # define MLX_ERR 1
 # define ANSI_COLOR_GREEN   "\x1b[32m"

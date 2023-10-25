@@ -6,7 +6,7 @@
 /*   By: fgonzale <fgonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:35:27 by fgonzale          #+#    #+#             */
-/*   Updated: 2023/10/25 00:31:25 by fgonzale         ###   ########.fr       */
+/*   Updated: 2023/10/25 18:27:24 by fgonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	check_map_char(t_data *data)
 			else if (data->map[i][j] == 'P')
 				data->textures.player_nb++;
 			else if (data->map[i][j] != '0' && data->map[i][j] != '1')
-				exit_error(msg("Wrong map values", 1), data);
+				exit_error(msg("Case must be 1, C, E, P or 0", 1), data);
 			j++;
 		}
 		i++;
 	}
 	if (data->textures.collectibles_nb == 0 || data->textures.exit_nb != 1
 		|| data->textures.player_nb != 1)
-		exit_error(msg("Error with map items", 1), data);
+		exit_error(msg(DOUBLONS, 1), data);
 }
 
 void	check_map(t_data *data, int height)
